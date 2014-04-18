@@ -237,6 +237,7 @@ ul.table li{
 float:left; 
 text-align:center; 
 height:32px; 
+border-left:1px solid #D4E7FF;"
 line-height:32px} 
 ul.table li img{ 
  vertical-align:middle} 
@@ -387,7 +388,7 @@ width:580px;
 float:right; 
 margin-right:16px} 
 ul.index{ 
- width:580px;margin:0} 
+ width:590px;margin:0} 
 ul.index li.t1{ 
  width:50px} 
 ul.index li.t2{ 
