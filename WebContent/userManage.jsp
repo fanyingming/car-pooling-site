@@ -1,3 +1,8 @@
+<%@ page language="java" pageEncoding="utf-8"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -13,10 +18,10 @@
 			</div>
 			<div style="width:50%;float:left;">
 				<div class="logArea" >
-					<a href="log.html">登录</a>
+					<a href="log.jsp">登录</a>
 				</div>
 				<div class="logArea">
-					<a href="log.html">注册</a>
+					<a href="log.jsp">注册</a>
 				</div>
 			</div>
 			

@@ -75,21 +75,25 @@ public class UserServlet extends HttpServlet {
 			}//Administrator add user.
 			else if (type.equals("add")) {
 				String user_phone = request.getParameter("user_phone");
+				String user_mail  = request.getParameter("user_mail");
 				User u = new User();
 				u.setUser_name(user_name);
 				u.setUser_pass(user_pass);
 				u.setUser_phone(user_phone);
+				u.setUser_mail(user_mail);
 				service.addUser(u);
 				response.sendRedirect("UserServlet?type=list");
 			} else if (type.equals("regist")) {
 			//	String yan=request.getParameter("yan");
 			//	String rand=(String)session.getAttribute("rand");
 				String user_phone = request.getParameter("user_phone");
+				String user_mail  = request.getParameter("user_mail");
 				 
 				User u = new User();
 				u.setUser_name(user_name);
 				u.setUser_pass(user_pass);
 				u.setUser_phone(user_phone);
+				u.setUser_mail(user_mail);
 				service.addUser(u);
 				//Add user info into db complete, then we set user session. 
 				int user_id = service.getUserIdByUserName(user_name);

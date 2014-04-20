@@ -16,11 +16,12 @@ public class UserDao {
 	public boolean addUser(User u) throws Exception {
 
 		Connection conn = DBPoolUtil.getConnection();
-		String sql = "insert into tb_user(user_name,user_pass,user_phone) values (?,?,?)";
+		String sql = "insert into tb_user(user_name,user_pass,user_phone,user_mail) values (?,?,?,?)";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, u.getUser_name());
 		pstmt.setString(2, u.getUser_pass());
 		pstmt.setString(3, u.getUser_phone());
+		pstmt.setString(4, u.getUser_mail());
 		pstmt.executeUpdate();
 		DBPoolUtil.closeConnection(conn);
 		return true;
@@ -54,12 +55,13 @@ public class UserDao {
 
 	public boolean modifyUser(User u) throws Exception {
 		Connection conn = DBPoolUtil.getConnection();
-		String sql = "update tb_user set user_name=?,user_pass=? ,user_phone=? where user_id=?";
+		String sql = "update tb_user set user_name=?,user_pass=? ,user_phone=?, user_mail=? where user_id=?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, u.getUser_name());
 		pstmt.setString(2, u.getUser_pass());
 		pstmt.setString(3, u.getUser_phone());
-		pstmt.setInt(4, u.getUser_id());
+		pstmt.setString(4, u.getUser_mail());
+		pstmt.setInt(5, u.getUser_id());
 		pstmt.executeUpdate();
 		DBPoolUtil.closeConnection(conn);
 		return true;
@@ -78,6 +80,7 @@ public class UserDao {
 			u.setUser_name(result.getString("user_name"));
 			u.setUser_pass(result.getString("user_pass"));
 			u.setUser_phone(result.getString("user_phone"));
+			u.setUser_mail(result.getString("user_mail"));
 			users.add(u);
 		}
 		DBPoolUtil.closeConnection(conn);
@@ -95,6 +98,7 @@ public class UserDao {
 			u.setUser_name(result.getString("user_name"));
 			u.setUser_pass(result.getString("user_pass"));
 			u.setUser_phone(result.getString("user_phone"));
+			u.setUser_mail(result.getString("user_mail"));
 		}
 		DBPoolUtil.closeConnection(conn);
 		return u;
@@ -159,6 +163,7 @@ public class UserDao {
 			u.setUser_name(result.getString("user_name"));
 			u.setUser_pass(result.getString("user_pass"));
 			u.setUser_phone(result.getString("user_phone"));
+			u.setUser_mail(result.getString("user_mail"));
 			users.add(u);
 		}
 		DBPoolUtil.closeConnection(conn);

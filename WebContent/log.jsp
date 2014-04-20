@@ -1,4 +1,8 @@
-
+<%@ page language="java" pageEncoding="utf-8"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -16,10 +20,10 @@
 			</div>
 			<div style="width:50%;float:left;">
 				<div class="logArea" >
-					<a href="log.html">登录</a>
+					<a href="log.jsp">登录</a>
 				</div>
 				<div class="logArea">
-					<a href="log.html">注册</a>
+					<a href="log.jsp">注册</a>
 				</div>
 
 			</div>
@@ -29,10 +33,10 @@
 	<div class="body" style="height:500px;">
 		<div class="body_bg">
 			<div style="width:49%;margin:0px;float:left;border-right:1px solid;border-right-color:#77eeff;height:400px;">
-				<form action="#" style="padding:30px;margin:auto;text-align:center;">
+				<form name="form1" method="post" action="UserServlet?type=login" style="padding:30px;margin:auto;text-align:center;">
 				<p style="width:100%;font-family:'微软雅黑';font-size:30px;">请登录</p>
 				<div class="logItem">用户名：
-					<input type="text" name="username" class="myInput" style="
+					<input type="text" name="user_name" class="myInput" style="
 						width: 250px;
 						background: none;
 						border: 1px solid;
@@ -40,7 +44,7 @@
 						height: 40px;" />
 				</div>
 				<div class="logItem">密码&nbsp;&nbsp;&nbsp;：
-					<input type="password" name="username" class="myInput" style="
+					<input type="password" name="user_pass" class="myInput" style="
 						width: 250px;
 						background: none;
 						border: 1px solid;
@@ -51,10 +55,10 @@
 				</form>
 			</div>
 			<div style="width:50%;margin:0px;float:left;height:400px;">
-				<form action="#" style="padding:30px;margin:auto;text-align:center;">
+				<form name="form2" method="post" action="UserServlet?type=regist" style="padding:30px;margin:auto;text-align:center;">
 				<p style="width:100%;font-family:'微软雅黑';font-size:30px;">请注册</p>
 				<div class="logItem">用户名&nbsp;&nbsp;&nbsp;：
-					<input type="text" name="username" class="myInput" style="
+					<input type="text" name="user_name" class="myInput" style="
 						width: 250px;
 						background: none;
 						border: 1px solid;
@@ -62,7 +66,7 @@
 						height: 40px;" />
 				</div>
 				<div class="logItem">密码&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;：
-					<input type="password" name="password" class="myInput" style="
+					<input type="password" name="user_pass" class="myInput" style="
 						width: 250px;
 						background: none;
 						border: 1px solid;
@@ -70,7 +74,7 @@
 						height: 40px;" />
 				</div>
 				<div class="logItem">电子邮箱：
-					<input type="text" name="username" class="myInput" style="
+					<input type="text" name="user_mail" class="myInput" style="
 						width: 250px;
 						background: none;
 						border: 1px solid;
@@ -78,7 +82,7 @@
 						height: 40px;" />
 				</div>
 				<div class="logItem">手机号&nbsp;&nbsp;&nbsp;：
-					<input type="text" name="username" class="myInput" style="
+					<input type="text" name="user_phone" class="myInput" style="
 						width: 250px;
 						background: none;
 						border: 1px solid;
