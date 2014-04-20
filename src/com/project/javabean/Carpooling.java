@@ -6,10 +6,27 @@ public class Carpooling {
 	private String destiny;
 	private String date;
 	private String car_type;
+	private String intro;
 	private int gasoline_fee;
 	private int road_fee;
 	private int total_passangers;
+	private int joined_passangers;
 	private int distance;
+	
+	
+	
+	public int getJoined_passangers() {
+		return joined_passangers;
+	}
+	public void setJoined_passangers(int joined_passangers) {
+		this.joined_passangers = joined_passangers;
+	}
+	public String getIntro() {
+		return intro;
+	}
+	public void setIntro(String intro) {
+		this.intro = intro;
+	}
 	public int getCarpooling_id() {
 		return carpooling_id;
 	}
