@@ -1,4 +1,4 @@
 /build
 /blue
 /blue
-*.DS_Store
+.DS_Store

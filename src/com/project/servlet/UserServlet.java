@@ -54,8 +54,8 @@ public class UserServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		try {
 			if (type.equals("login")) {
-				String validate=request.getParameter("validate");
-				String rand=(String)session.getAttribute("rand");
+			//	String validate=request.getParameter("validate");
+			//	String rand=(String)session.getAttribute("rand");
 			//	System.out.println("user_name=" + user_name);
 			//	System.out.println("user_pass=" + user_pass);
 				User u = new User();
