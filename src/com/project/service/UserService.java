@@ -45,9 +45,11 @@ public class UserService {
 	public String getUserNameByUserId(int user_id) throws Exception {
 		return dao.getUserNameByUserId(user_id);
 	}
+	
 	public int getUserTotalNum() throws Exception {
 		return dao.getUserTotalNum();
 	}
+	
 	public List<User> listAllUserOrderByUserId(int begin, int offset) throws Exception{
 		return dao.listAllUserOrderByUserId(begin, offset);
 	}
