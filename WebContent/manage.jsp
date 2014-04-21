@@ -62,6 +62,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<a class="x select" href="manage.jsp">拼车信息管理</a>
 				<a class="x " href="messageManage.jsp">留言管理</a>
 				<a class="x " href="userManage.jsp">用户管理</a>
+				<a class="x " href="statistics.html">站点统计</a>
 			</div>
 		</div>
 	</div>
