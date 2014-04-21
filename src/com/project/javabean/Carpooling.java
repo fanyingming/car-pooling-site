@@ -2,6 +2,7 @@ package com.project.javabean;
 
 public class Carpooling {
 	private int carpooling_id;
+	private int user_id;
 	private String source;
 	private String destiny;
 	private String date;
@@ -15,6 +16,12 @@ public class Carpooling {
 	
 	
 	
+	public int getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
+	}
 	public int getJoined_passangers() {
 		return joined_passangers;
 	}

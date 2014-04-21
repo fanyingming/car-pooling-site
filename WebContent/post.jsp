@@ -1,4 +1,5 @@
-<%@ page language="java" pageEncoding="utf-8"%>
+<%@ page language="java" import="java.util.*,com.project.javabean.*,
+com.project.service.*" pageEncoding="utf-8"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -19,12 +20,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<a href="index.html" style="font-size:45px;color:white;font-family:'微软雅黑';">拼车网</a>
 			</div>
 			<div style="width:50%;float:left;">
-				<div class="logArea" >
-					<a href="#">登录</a>
+				<%
+				if(session.getAttribute("user")!=null){
+				User user=(User)session.getAttribute("user");
+			%>
+			<span><%=user.getUser_name()%>，欢迎！&nbsp;[<a href="UserServlet?type=exit" id="exit-button">退出</a>]</span>   
+			<% }else{%>
+     			<div class="logArea" >
+					<a href="log.jsp">登录</a>
 				</div>
 				<div class="logArea">
-					<a href="#">注册</a>
+					<a href="log.jsp">注册</a>
 				</div>
+	  		<%}%>
 			</div>
 
 		</div>

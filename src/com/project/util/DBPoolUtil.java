@@ -15,7 +15,7 @@ public class DBPoolUtil {
 		} catch (PropertyVetoException e) {
 			e.printStackTrace();
 		}
-		dataSource.setJdbcUrl("jdbc:mysql://localhost:3306/pingchewang");
+		dataSource.setJdbcUrl("jdbc:mysql://localhost:3306/PingCheWang");
 		dataSource.setUser("root");
 		dataSource.setPassword("123456");
 

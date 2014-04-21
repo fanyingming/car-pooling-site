@@ -64,11 +64,11 @@ public class UserServlet extends HttpServlet {
 				if (service.isExist(u)) {
 					u.setUser_id(service.getUserIdByUserName(user_name));
 					session.setAttribute("user", u);
-					request.getRequestDispatcher("main.jsp").forward(request,
+					request.getRequestDispatcher("index.jsp").forward(request,
 							response);
 				   } else {
 					request.setAttribute("result", "用户名或密码不存在");
-					request.getRequestDispatcher("login.jsp").forward(request,
+					request.getRequestDispatcher("log.jsp").forward(request,
 							response);
 				   }
 				
@@ -139,19 +139,15 @@ public class UserServlet extends HttpServlet {
 				user.setUser_mail(user_mail);
 				service.modifyUser(user);
 				response.sendRedirect("UserServlet?type=personalInfo");
-			} else if (type.equals("exit")) {
+			} 
+			*/
+			else if (type.equals("exit")) {
 
 				session.invalidate();
-				request.getRequestDispatcher("main.jsp").forward(request,
+				request.getRequestDispatcher("index.jsp").forward(request,
 						response);
-			} else if (type.equals("personalInfo")) {// �����������ʾ��Ա������Ϣ��
-				SessionChecker sessionChecker = new SessionChecker(request);
-				if (sessionChecker.checkUser()) {
-					request.getRequestDispatcher("personalInfo.jsp").forward(
-							request, response);
-				} 
-				*/
-				else {
+			} 
+			else {
 					response.sendRedirect("login.jsp");
 				}
 			

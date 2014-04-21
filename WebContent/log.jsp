@@ -1,4 +1,5 @@
-<%@ page language="java" pageEncoding="utf-8"%>
+<%@ page language="java" import="java.util.*,com.project.javabean.*,
+com.project.service.*" pageEncoding="utf-8"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -13,18 +14,35 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script>
 </head>
 <body>
+<%
+	String result="";
+	String user_name="";
+	boolean flag=false;
+	if(request.getAttribute("result")!=null){
+		result=(String)request.getAttribute("result");
+		flag=true;
+		user_name=(String)request.getAttribute("user_name");
+	}
+ %>
 	<div style="width:100%;">
 		<div class="head" style="height:125px;padding-bottom:0px;">
 			<div style="width:47%;float:left;margin-left:3%;">
 				<a href="index.html" style="font-size:45px;color:white;font-family:'微软雅黑';">拼车网</a>
 			</div>
 			<div style="width:50%;float:left;">
-				<div class="logArea" >
+				<%
+				if(session.getAttribute("user")!=null){
+				User user=(User)session.getAttribute("user");
+			%>
+			<span><%=user.getUser_name()%>，欢迎！&nbsp;[<a href="UserServlet?type=exit" id="exit-button">退出</a>]</span>   
+			<% }else{%>
+     			<div class="logArea" >
 					<a href="log.jsp">登录</a>
 				</div>
 				<div class="logArea">
 					<a href="log.jsp">注册</a>
 				</div>
+	  		<%}%>
 
 			</div>
 			
@@ -41,7 +59,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						background: none;
 						border: 1px solid;
 						border-color: #22a3ff;
-						height: 40px;" />
+						height: 40px;" 
+						value="<%=user_name %>"
+						/>
 				</div>
 				<div class="logItem">密码&nbsp;&nbsp;&nbsp;：
 					<input type="password" name="user_pass" class="myInput" style="
@@ -53,6 +73,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<input type="submit" class="postInfo" style="margin-right:73px;" value="确认登录" />
 				</form>
+				<%
+  	   				if(flag){
+  	   			%>
+      			<span style="color:#EA0000;font-size:18px;font-family:"楷体";margin-left:10px;">*<%=result %>!!!</span>
+       			<% } %>
 			</div>
 			<div style="width:50%;margin:0px;float:left;height:400px;">
 				<form name="form2" method="post" action="UserServlet?type=regist" style="padding:30px;margin:auto;text-align:center;">
