@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -134,6 +135,59 @@ public class CarpoolingDao {
 		pstmt.executeUpdate();
 		DBPoolUtil.closeConnection(conn);
 		return true;
+	}
+	
+	public int getSecrchCarpoolingNumBySource(String keyWords)throws Exception {
+		int carpooling_num = 0;
+		Connection conn = DBPoolUtil.getConnection();
+		Statement stmt;
+		String sql = "select * from tb_carpooling where source like '%"+keyWords+"%'";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		ResultSet result = pstmt.executeQuery(sql);
+		if (result.next()) {
+			result.last();
+			carpooling_num = result.getRow();
+		} else {
+			carpooling_num = 0;
+		}
+		DBPoolUtil.closeConnection(conn);
+		return carpooling_num;
+	}
+
+	public List<Carpooling> getSecrchCarpoolingBySource(String keyWords, int begin, int offset) throws Exception{
+
+			List<Carpooling> carpoolings = new ArrayList<Carpooling>();
+			Connection conn = DBPoolUtil.getConnection();
+			
+			String sql = "select * from tb_carpooling where source like '%"+keyWords+"%' order by carpooling_id desc limit "
+					+ begin + "," + offset;
+
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			ResultSet result = pstmt.executeQuery(sql);
+	//		System.out.println("begin:"+begin);
+	//		System.out.println("offset:"+offset);
+	//		System.out.println("keyWords:"+keyWords);
+	
+			while (result.next()) {
+			
+				Carpooling c = new Carpooling();
+				c.setCar_type(result.getString("car_type"));
+				c.setCarpooling_id(result.getInt("carpooling_id"));
+				c.setDate(result.getString("date"));
+				c.setDestiny(result.getString("destiny"));
+				c.setDistance(result.getInt("distance"));
+				c.setGasoline_fee(result.getInt("gasoline_fee"));
+				c.setIntro(result.getString("intro"));
+				c.setJoined_passangers(result.getInt("joined_passangers"));
+				c.setRoad_fee(result.getInt("road_fee"));
+				c.setSource(result.getString("source"));
+				c.setTotal_passangers(result.getInt("total_passangers"));
+				c.setUser_id(result.getInt("user_id"));
+				carpoolings.add(c);
+			}
+//			System.out.println("num="+i);
+			DBPoolUtil.closeConnection(conn);
+			return carpoolings;
 	}
 
 }

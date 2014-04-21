@@ -15,6 +15,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
 <%
 		CarpoolingService carpoolingService=new CarpoolingService();
+		List<Carpooling> list=null;
 	    int intPageSize; //一页显示的记录
         int intRowCount; //记录总数
         int intPageCount; //总页
@@ -23,32 +24,58 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         intPageSize = GlobalData.intPageSize_manage;
     		//取得待显示页
         String strPage = request.getParameter("page");
-        if (strPage == null) {//表明在QueryString中没有page这一个参数，此时显示第一页数
-            intPage = 1;
-        } else {//将字符串转换成整
-            intPage = java.lang.Integer.parseInt(strPage);
-            if (intPage < 1) {
-                intPage = 1;
-            }
-        }
-        intRowCount=carpoolingService.getCarpoolingTotalNum();
-        //记算总页
-        intPageCount = (intRowCount + intPageSize - 1) / intPageSize;
-   	 //调整待显示的页码
-        if (intPage > intPageCount && intPageCount>0) {
-            intPage = intPageCount;
-        }
-        if(intPageCount==0){
-       		intPage=1;
-        		intPageCount=1;
-        }
-        int begin=(intPage - 1) * intPageSize ;
-		List<Carpooling> list = carpoolingService.listAllCarpoolingOrderByCarpoolingId(begin, intPageSize ); 
+    		String type = request.getParameter("type");
+    		if (strPage == null) {//表明在QueryString中没有page这一个参数，此时显示第一页数
+	            intPage = 1;
+	        } else {//将字符串转换成整
+	            intPage = java.lang.Integer.parseInt(strPage);
+	            if (intPage < 1) {
+	                intPage = 1;
+	            }
+	        }
+    		//index page.
+    		if(type == null || !type.equals("search")){
+    			 
+    		        intRowCount=carpoolingService.getCarpoolingTotalNum();
+    		        //记算总页
+    		        intPageCount = (intRowCount + intPageSize - 1) / intPageSize;
+    		   	 //调整待显示的页码
+    		        if (intPage > intPageCount && intPageCount>0) {
+    		            intPage = intPageCount;
+    		        }
+    		        if(intPageCount==0){
+    		       		intPage=1;
+    		        		intPageCount=1;
+    		        }
+    		        int begin=(intPage - 1) * intPageSize ;
+    				list = carpoolingService.listAllCarpoolingOrderByCarpoolingId(begin, intPageSize ); 
+    		}else{//search page.
+    			String date = request.getParameter("date");
+			String source = request.getParameter("source");
+			String destiny = request.getParameter("destiny");
+			
+			//We search source only now.
+			intRowCount=carpoolingService.getSecrchCarpoolingNumBySource(source);
+		    //记算总页
+		    intPageCount = (intRowCount + intPageSize - 1) / intPageSize;
+		    //调整待显示的页码
+		    if (intPage > intPageCount && intPageCount>0) {
+		    		intPage = intPageCount;
+		     }
+		    if(intPageCount==0){
+		        intPage=1;
+		        intPageCount=1;
+		    }
+		    int begin=(intPage - 1) * intPageSize ;
+			list = carpoolingService.getSecrchCarpoolingBySource(source,begin, intPageSize ); 
+    		}
+    			
+       
  %>
 	<div style="width:100%;">
 		<div class="head" style="height:125px;padding-bottom:0px;">
 			<div style="width:47%;float:left;margin-left:3%;">
-				<a href="index.html" style="font-size:45px;color:white;font-family:'微软雅黑';">拼车网</a>
+				<a href="index.jsp" style="font-size:45px;color:white;font-family:'微软雅黑';">拼车网</a>
 			</div>
 			<div style="width:50%;float:left;">
 			
@@ -76,14 +103,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="body">
 <div class="body_bg">
 	<div class="search">
-			<form id="search" action=""><!--	搜索表单		-->
+			<form id="secrchForm" action="" method="post"><!--	搜索表单		-->
 				出发城市：
-				<input plugin="start" id="search_start" name="start" value="北京" class="f" type="text" />
+				<input plugin="start" id="search_start" name="source" value="北京" class="f" type="text" />
 				目的城市：
-				<input plugin="end" id="search_end" name="end" value="" class="f" type="text" />
+				<input plugin="end" id="search_end" name="destiny" value="" class="f" type="text" />
 				出发时间：
-				<input  name="time" value="" class="f" type="text" />
-				<a id="to_search" class="x search" href="javascript:void(0)" rel="nofollow">搜索</a>
+				<input  name="date" value="" class="f" type="text" />
+				<a id="to_search" class="x search" href="javascript:void(0)" rel="nofollow" onclick= "secrchForm.action='index.jsp?type=search';secrchForm.submit(); ">搜索</a>
+				
 			</form>
 	</div>
 	<div class="body_left" style="height:535px;">

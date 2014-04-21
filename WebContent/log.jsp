@@ -27,7 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div style="width:100%;">
 		<div class="head" style="height:125px;padding-bottom:0px;">
 			<div style="width:47%;float:left;margin-left:3%;">
-				<a href="index.html" style="font-size:45px;color:white;font-family:'微软雅黑';">拼车网</a>
+				<a href="index.jsp" style="font-size:45px;color:white;font-family:'微软雅黑';">拼车网</a>
 			</div>
 			<div style="width:50%;float:left;">
 				<%
@@ -60,7 +60,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						border: 1px solid;
 						border-color: #22a3ff;
 						height: 40px;" 
-						value="<%=user_name %>"
+						value=""
 						/>
 				</div>
 				<div class="logItem">密码&nbsp;&nbsp;&nbsp;：
