@@ -7,8 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h2>error page.</h2>
-	  <%
+ 	   <%
       	if(request.getAttribute("result")!=null){
        %>
       <h2><%=(String)request.getAttribute("result") %></h2>

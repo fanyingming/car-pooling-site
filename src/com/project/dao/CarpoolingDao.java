@@ -114,5 +114,26 @@ public class CarpoolingDao {
 		DBPoolUtil.closeConnection(conn);
 		return c;
 	}
+	
+	public boolean modifyCarpooling(Carpooling c) throws Exception {
+		Connection conn = DBPoolUtil.getConnection();
+
+		String sql = "update tb_carpooling set source=?,destiny=?,date=?,car_type=?,intro=?,gasoline_fee=?,road_fee=?,total_passangers=?,joined_passangers=?,distance=? where carpooling_id=?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, c.getSource());
+		pstmt.setString(2, c.getDestiny());
+		pstmt.setString(3, c.getDate());
+		pstmt.setString(4, c.getCar_type());
+		pstmt.setString(5, c.getIntro());
+		pstmt.setInt(6, c.getGasoline_fee());
+		pstmt.setInt(7, c.getRoad_fee());
+		pstmt.setInt(8, c.getTotal_passangers());
+		pstmt.setInt(9, c.getJoined_passangers());
+		pstmt.setInt(10, c.getDistance());
+		pstmt.setInt(11, c.getCarpooling_id());
+		pstmt.executeUpdate();
+		DBPoolUtil.closeConnection(conn);
+		return true;
+	}
 
 }

@@ -30,4 +30,12 @@ public class CarpoolingService {
 	public Carpooling getCarpoolingByCarpoolingId(int carpooling_id) throws Exception {
 		return dao.getCarpoolingByCarpoolingId(carpooling_id);
 	}
+	
+	public boolean addPassanger(int carpooling_id) throws Exception {
+		Carpooling c = dao.getCarpoolingByCarpoolingId(carpooling_id);
+		int joined_passangers = c.getJoined_passangers();
+		c.setJoined_passangers(joined_passangers+1);
+		dao.modifyCarpooling(c);
+		return true;
+	}
 }

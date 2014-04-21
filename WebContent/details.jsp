@@ -84,7 +84,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<%=carpooling.getIntro()%>
 				</div>
 				<div style="margin:0px;width:30%;float:left;">
-					<div class="postInfo" style="width:164px;"><a href="javascript:void(0)" >申请加入</a></div>
+					<div class="postInfo" style="width:164px;"><a href="CarpoolingServlet?type=join&&carpooling_id=<%=carpooling.getCarpooling_id()%>" >申请加入</a></div>
 				</div>
 			</div>
 		</div>
