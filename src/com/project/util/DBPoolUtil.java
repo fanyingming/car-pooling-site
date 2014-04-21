@@ -16,7 +16,7 @@ public class DBPoolUtil {
 			e.printStackTrace();
 		}
 		dataSource.setJdbcUrl("jdbc:mysql://localhost:3306/PingCheWang");
-		dataSource.setUser("root");
+		dataSource.setUser("wang");
 		dataSource.setPassword("123456");
 
 		dataSource.setInitialPoolSize(2);
