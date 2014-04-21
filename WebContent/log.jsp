@@ -34,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				if(session.getAttribute("user")!=null){
 				User user=(User)session.getAttribute("user");
 			%>
-			<span><%=user.getUser_name()%>，欢迎！&nbsp;[<a href="UserServlet?type=exit" id="exit-button">退出</a>]</span>   
+			<span style="float:right;"><%=user.getUser_name()%>，欢迎！&nbsp;[<a href="UserServlet?type=exit" id="exit-button">退出</a>]</span>   
 			<% }else{%>
      			<div class="logArea" >
 					<a href="log.jsp">登录</a>
@@ -72,12 +72,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						height: 40px;" />
 				</div>
 				<input type="submit" class="postInfo" style="margin-right:73px;" value="确认登录" />
-				</form>
 				<%
-  	   				if(flag){
+				if(flag){
   	   			%>
-      			<span style="color:#EA0000;font-size:18px;font-family:"楷体";margin-left:10px;">*<%=result %>!!!</span>
+      			<span style="color:#EA0000;font-size:18px;float:right;margin-right:80px;margin-left:10px;">*<%=result %>!!!</span>
        			<% } %>
+				</form>
+				
+  	   				
 			</div>
 			<div style="width:50%;margin:0px;float:left;height:400px;">
 				<form name="form2" method="post" action="UserServlet?type=regist" style="padding:30px;margin:auto;text-align:center;">
