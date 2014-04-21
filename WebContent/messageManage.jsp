@@ -1,4 +1,5 @@
-<%@ page language="java" pageEncoding="utf-8"%>
+<%@ page language="java" import="java.util.*,com.project.javabean.*,
+com.project.service.*" pageEncoding="utf-8"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -14,7 +15,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div style="width:100%;">
 		<div class="head" style="height:125px;padding-bottom:0px;">
 			<div style="width:47%;float:left;margin-left:3%;">
-				<a href="index.html" style="font-size:45px;color:white;font-family:'微软雅黑';">拼车网管理系统</a>
+				<a href="index.jsp" style="font-size:45px;color:white;font-family:'微软雅黑';">拼车网管理系统</a>
 			</div>
 			<div style="width:50%;float:left;">
 				<div class="logArea" >
@@ -26,9 +27,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 			
 			 <div class="menu">
-				<a class="x " href="manage.html">拼车信息管理</a>
-				<a class="x select" href="messageManage.html">留言管理</a>
-				<a class="x " href="userManage.html">用户管理</a>
+				<a class="x " href="manage.jsp">拼车信息管理</a>
+				<a class="x select" href="messageManage.jsp">留言管理</a>
+				<a class="x " href="userManage.jsp">用户管理</a>
 			</div>
 		</div>
 	</div>
