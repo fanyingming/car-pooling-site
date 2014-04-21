@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*,com.project.javabean.*,
+<%@ page language="java" import="java.util.*,com.project.javabean.*,com.project.util.*,
 com.project.service.*" pageEncoding="utf-8"%>
 <%
 String path = request.getContextPath();
@@ -12,6 +12,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link type="text/css" href="style-1.css" rel="stylesheet" />
 </head>
 <body>
+<%
+		CarpoolingService carpoolingService=new CarpoolingService();
+	    int intPageSize; //一页显示的记录
+        int intRowCount; //记录总数
+        int intPageCount; //总页
+        int intPage; //待显示页
+        //设置一页显示的记录
+        intPageSize = GlobalData.intPageSize_manage;
+    		//取得待显示页
+        String strPage = request.getParameter("page");
+        if (strPage == null) {//表明在QueryString中没有page这一个参数，此时显示第一页数
+            intPage = 1;
+        } else {//将字符串转换成整
+            intPage = java.lang.Integer.parseInt(strPage);
+            if (intPage < 1) {
+                intPage = 1;
+            }
+        }
+        intRowCount=carpoolingService.getCarpoolingTotalNum();
+        //记算总页
+        intPageCount = (intRowCount + intPageSize - 1) / intPageSize;
+   	 //调整待显示的页码
+        if (intPage > intPageCount && intPageCount>0) {
+            intPage = intPageCount;
+        }
+        if(intPageCount==0){
+       		intPage=1;
+        		intPageCount=1;
+        }
+        int begin=(intPage - 1) * intPageSize ;
+		List<Carpooling> list = carpoolingService.listAllCarpoolingOrderByCarpoolingId(begin, intPageSize ); 
+ %>
 	<div style="width:100%;">
 		<div class="head" style="height:125px;padding-bottom:0px;">
 			<div style="width:47%;float:left;margin-left:3%;">
@@ -19,10 +51,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 			<div style="width:50%;float:left;">
 				<div class="logArea" >
-					<a href="log.html">登录</a>
+					<a href="log.jsp">登录</a>
 				</div>
 				<div class="logArea">
-					<a href="log.html">注册</a>
+					<a href="log.jsp">注册</a>
 				</div>
 			</div>
 			
@@ -50,18 +82,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 			<li class="t7" style="width:130px;">操作</li>
 		</ul>
+		<%
+         	if(list!=null){
+        			for(int i=0;i<list.size();i++){
+        				Carpooling carpooling= (Carpooling)list.get(i);
+    		 %>
 		<ul class="table interleaved_0" style="margin-left:30px;width:95%;">
 				<li class="t1" style="width:130px;"><span class='ico_type_car'>&nbsp;</span></li>
-				<li class="t2" style="width:130px;">04-18 早上</li>
+				<li class="t2" style="width:130px;"><%=carpooling.getDate() %></li>
 				<li class="t3" style="width:130px;"><span class='green'>面议</span></li>
-				<li class="t4" style="width:130px;">轿车</li>
+				<li class="t4" style="width:130px;"><%=carpooling.getCar_type() %></li>
 
-				<li class="t5" style="width:130px;">平顶山</li>
-				<li class="t6" style="width:130px;">益阳</li>
+				<li class="t5" style="width:130px;"><%=carpooling.getSource() %></li>
+				<li class="t6" style="width:130px;"><%=carpooling.getDestiny() %></li>
 
-				<li class='t7' style="width:130px;"><a class2baidu='details' target='_blank' href='#' title='查看详情'>删除</a></li>
+				<li class='t7' style="width:130px;"><a class2baidu='details' target='_blank' href="CarpoolingServlet?type=delete&&carpooling_id=<%=carpooling.getCarpooling_id() %>&&page=<%=intPage %>" >删除</a></li>
 		</ul>	
-			
+		<%} } %>
+		<!--分页代码-->
+		<div class='pages'>
+			<a class='btn-prev' href="userManage.jsp?page=<%=intPage - 1%>">上一页</a>
+			<a class='btn-next' href="userManage.jsp?page=<%=intPage + 1%>">下一页</a>
+			<span>共 <span ><%=intPageCount %></span> 页 | 第 <span ><%=intPage %></span> 页|共<span ><%=intRowCount %></span>条记录</span>
+		</div>
 			
 			
 	</div>

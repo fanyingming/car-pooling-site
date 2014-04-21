@@ -143,7 +143,6 @@ public class UserServlet extends HttpServlet {
 				response.sendRedirect("UserServlet?type=list");
 			}
 			else if (type.equals("exit")) {
-
 				session.invalidate();
 				request.getRequestDispatcher("index.jsp").forward(request,
 						response);

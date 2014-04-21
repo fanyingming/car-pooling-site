@@ -14,6 +14,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script>
 </head>
 <body>
+<%
+	String result="";
+	String user_name="";
+	boolean flag=false;
+	if(request.getAttribute("result")!=null){
+		result=(String)request.getAttribute("result");
+		flag=true;
+		user_name=(String)request.getAttribute("user_name");
+	}
+ %>
 	<div style="width:100%;">
 		<div class="head" style="height:125px;padding-bottom:0px;">
 			<div style="width:47%;float:left;margin-left:3%;">
@@ -42,54 +52,55 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="search">
 			发布拼车信息
 		</div>
-
+		<form name="form1" method="post" action="CarpoolingServlet?type=add" >
 		<div>
 			<div class="body_left" style="height:535px;">
 				<div style="width:342px;height:425px;float:left;margin:20px;" id="dituContent"></div>    
 			</div>
 			<div class="list">
-				<div class="tr ml4"><span class="ico_type_car">拼车信息：</div>
+				<div class="tr ml4"><span class="ico_type_car" />拼车信息：</div>
+				
 				<div class="tr to_line">
 					<div style="width:50%;float:left;margin:0px;">
 						<div style="margin:0px">
-						出发城市：<input type="text" name="fname" />
+						出发城市：<input type="text" name="source" />
 						</div>
 						<div style="margin:0px">
-						出发时间：<input type="text" name="fname" />
+						出发时间：<input type="text" name="date" />
 						</div>
 						<div style="margin:0px">
-						总路程约：<input type="text" name="fname" />
+						总路程约：<input type="text" name="distance" />公里
 						</div>
 						<div style="margin:0px">
-						可容纳人数：<input type="text" name="fname" />
+						可容纳人数：<input type="text" name="total_passangers" />
 						</div>
 					</div>
 					<div style="width:50%;float:left;margin:0px;">
 						<div style="margin:0px">
-						目的城市：<input type="text" name="fname" />
+						目的城市：<input type="text" name="destiny" />
 						
 						</div>
 						<div style="margin:0px">
-						汽油费约：<input type="text" name="fname" />
+						汽油费约：<input type="text" name="gasoline_fee" />元
 						</div>
 						<div style="margin:0px">
-						路桥费约：<input type="text" name="fname" />
+						路桥费约：<input type="text" name="road_fee" />元
 						</div>
 						<div style="margin:0px">
-						汽车类型：<input type="text" name="fname" />
+						汽车类型：<input type="text" name="car_type" />
 						</div>
 					</div>
 					
 				</div>
 				<div class="hr"></div>
-				<div class="tr ml4"><span class="ico_type_car">附加介绍：</div>
+				<div class="tr ml4"><span class="ico_type_car" />附加介绍：</div>
 			</div>
 			<div>
-				<textarea cols=40 rows=8 name=text style="background-color:BFCEDC;margin-left:15px;width:550px;" id="messageArea"></textarea>
-				<button style="width:80px; height:40px;margin-top:0px;font-size:14px;line-height:40px;float:right;margin-right:30px;">发表信息</button>
+				<textarea cols=40 rows=8 name="intro" style="background-color:BFCEDC;margin-left:15px;width:550px;" id="messageArea"></textarea>
+				 <input type="submit" id="Button1" value="发布信息" style="width:80px; height:40px;margin-top:0px;font-size:14px;line-height:40px;float:right;margin-right:30px;" />
 			</div>
 		</div>
-
+		</form>
 
 	</div>
 </div>

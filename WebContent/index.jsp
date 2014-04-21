@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*,com.project.javabean.*,
+<%@ page language="java" import="java.util.*,com.project.javabean.*,com.project.util.*,
 com.project.service.*" pageEncoding="utf-8"%>
 <%
 String path = request.getContextPath();
@@ -13,6 +13,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script>
 </head>
 <body>
+<%
+		CarpoolingService carpoolingService=new CarpoolingService();
+	    int intPageSize; //一页显示的记录
+        int intRowCount; //记录总数
+        int intPageCount; //总页
+        int intPage; //待显示页
+        //设置一页显示的记录
+        intPageSize = GlobalData.intPageSize_manage;
+    		//取得待显示页
+        String strPage = request.getParameter("page");
+        if (strPage == null) {//表明在QueryString中没有page这一个参数，此时显示第一页数
+            intPage = 1;
+        } else {//将字符串转换成整
+            intPage = java.lang.Integer.parseInt(strPage);
+            if (intPage < 1) {
+                intPage = 1;
+            }
+        }
+        intRowCount=carpoolingService.getCarpoolingTotalNum();
+        //记算总页
+        intPageCount = (intRowCount + intPageSize - 1) / intPageSize;
+   	 //调整待显示的页码
+        if (intPage > intPageCount && intPageCount>0) {
+            intPage = intPageCount;
+        }
+        if(intPageCount==0){
+       		intPage=1;
+        		intPageCount=1;
+        }
+        int begin=(intPage - 1) * intPageSize ;
+		List<Carpooling> list = carpoolingService.listAllCarpoolingOrderByCarpoolingId(begin, intPageSize ); 
+ %>
 	<div style="width:100%;">
 		<div class="head" style="height:125px;padding-bottom:0px;">
 			<div style="width:47%;float:left;margin-left:3%;">
@@ -35,7 +67,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  		<%}%>
 			
 			</div>
-			<div class="postInfo"><a href="javascript:void(0)" title="车主发布长途拼车信息" rel="nofollow">发布拼车</a></div>
+			<div class="postInfo"><a href="post.jsp" title="车主发布长途拼车信息" rel="nofollow">发布拼车</a></div>
 			 <div class="menu">
 				<a class="x select" href=#">拼车查询</a>
 			</div>
@@ -77,27 +109,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<li class="t7">操作</li>
 			</ul>
 			<!--	从数据库里面读取数据并显示		-->
+			<%
+         		if(list!=null){
+        				for(int i=0;i<list.size();i++){
+        					Carpooling carpooling= (Carpooling)list.get(i);
+    		 	%>
 			<ul class="table index interleaved_0">
 				<li class="t1"><span class='ico_type_car'>&nbsp;</span></li>
-				<li class="t2">04-18 早上</li>
+				<li class="t2"><%=carpooling.getDate() %></li>
 				<li class="t3"><span class='green'>面议</span></li>
-				<li class="t4">轿车</li>
+				<li class="t4"><%=carpooling.getCar_type() %></li>
 
-				<li class="t5">平顶山</li>
-				<li class="t6">益阳</li>
+				<li class="t5"><%=carpooling.getSource() %></li>
+				<li class="t6"><%=carpooling.getDestiny() %></li>
 
-				<li class='t7'><a class2baidu='details' target='_blank' href='http://www.pcwcn.com/拼车/192078' title='查看详情'>申请加入</a></li>
+				<li class='t7'><a class2baidu='details' target='_blank' href="CarpoolingServlet?type=detail&&carpooling_id=<%=carpooling.getCarpooling_id() %>" title='查看详情'>查看详情</a></li>
 			</ul>
-
+			<%} } %>
 
 
 		</div>
 
 
+		<!--分页代码-->
 		<div class='pages'>
-			<a class='btn-prev' href='#''>上一页</a>
-						<a class='btn-next' href='#'>下一页</a>
-			<span>共 1 条记录</span>
+			<a class='btn-prev' href="userManage.jsp?page=<%=intPage - 1%>">上一页</a>
+			<a class='btn-next' href="userManage.jsp?page=<%=intPage + 1%>">下一页</a>
+			<span>共 <span ><%=intPageCount %></span> 页 | 第 <span ><%=intPage %></span> 页|共<span ><%=intRowCount %></span>条记录</span>
 		</div>
     </div>
 

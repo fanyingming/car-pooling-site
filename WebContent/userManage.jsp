@@ -13,7 +13,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 <body>
 <%
-	UserService userService=new UserService();
+		UserService userService=new UserService();
 	    int intPageSize; //一页显示的记录
         int intRowCount; //记录总数
         int intPageCount; //总页

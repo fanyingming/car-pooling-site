@@ -13,6 +13,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script>
 </head>
 <body>
+<% 
+  	Carpooling carpooling=(Carpooling)request.getAttribute("carpooling");
+  	int leaved_num = 0;
+  	if(carpooling==null){
+  		response.sendRedirect("log.jsp");
+  	}
+  	if( carpooling!=null ){
+  		leaved_num = carpooling.getTotal_passangers() - carpooling.getJoined_passangers();
+  	}
+  	
+  	
+  %>
 	<div style="width:100%;">
 		<div class="head" style="height:125px;padding-bottom:0px;">
 			<div style="width:47%;float:left;margin-left:3%;">
@@ -47,30 +59,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   
 	</div>
 	<div class="list">
-		<div class="tr to_line">出发城市：<span>平顶山</span><div><img src="blue/to_line.gif" /></div>目的城市：<span>长沙</span></div>
-		<div class="tr time">出发时间：<span>2014-04-18 早上(6:00-11:00)</span></div>
+		<div class="tr to_line">出发城市：<span><%=carpooling.getSource()%></span><div><img src="blue/to_line.gif" /></div>目的城市：<span><%=carpooling.getDestiny()%></span></div>
+		<div class="tr time">出发时间：<span><%=carpooling.getDate()%></span></div>
 		<div class="hr"></div>
 
 		<div class="tr ml4">
-			<div class="t32"><span>总路程约：</span>811.0公里</div>
-			<div class="t32"><span>汽油费约：</span><span class='money'>515 元</span></div>
-			<div class="t32"><span>路桥费约：</span><span class='money'>340 元</span></div>
+			<div class="t32"><span>总路程约：</span><%=carpooling.getDistance()%>公里</div>
+			<div class="t32"><span>汽油费约：</span><span class='money'><%=carpooling.getGasoline_fee()%> 元</span></div>
+			<div class="t32"><span>路桥费约：</span><span class='money'><%=carpooling.getRoad_fee()%> 元</span></div>
 		</div>
 		<div class="tr ml4">
-			<div class="t32"><span>可容纳人数：</span>7 人</div>
-			<div class="t32"><span>已报名人数：</span>2 人</div>
-			<div class="t32"><span>剩余人数：</span>5 人</div>
+			<div class="t32"><span>可容纳人数：</span><%=carpooling.getTotal_passangers()%> 人</div>
+			<div class="t32"><span>已报名人数：</span><%=carpooling.getJoined_passangers()%> 人</div>
+			<div class="t32"><span>剩余人数：</span><%=leaved_num %> 人</div>
 		</div>
 		<div class="tr ml4">
-			<div class="t32"><span>汽车类型：</span>轿车</div>
+			<div class="t32"><span>汽车类型：</span><%=carpooling.getCar_type()%></div>
 			<div class="t32"><span>费用方式：</span><span class='green'>面议</span></div>
 		</div>
 		<div class="tr ml4">
 			<span class="ico_type_car">车主留言：</span>
 			<div class="content">
 				<div style="margin:0px;width:70%;float:left;">
-				
-				回娘家走亲戚<br/>联系我时，请说是在拼车网上看到的，谢谢！
+				<%=carpooling.getIntro()%>
 				</div>
 				<div style="margin:0px;width:30%;float:left;">
 					<div class="postInfo" style="width:164px;"><a href="javascript:void(0)" >申请加入</a></div>
