@@ -34,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				if(session.getAttribute("user")!=null){
 				User user=(User)session.getAttribute("user");
 			%>
-			<span><%=user.getUser_name()%>，欢迎！&nbsp;[<a href="UserServlet?type=exit" id="exit-button">退出</a>]</span>   
+			<span style="float:right;"><%=user.getUser_name()%>，欢迎！&nbsp;[<a href="UserServlet?type=exit" id="exit-button">退出</a>]</span>   
 			<% }else{%>
      			<div class="logArea" >
 					<a href="log.jsp">登录</a>
