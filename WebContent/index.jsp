@@ -205,7 +205,5 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
     initMap();//创建和初始化地图
 </script>
-
-
 </body>
 </html>
