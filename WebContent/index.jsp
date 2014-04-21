@@ -133,8 +133,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		<!--分页代码-->
 		<div class='pages'>
-			<a class='btn-prev' href="userManage.jsp?page=<%=intPage - 1%>">上一页</a>
-			<a class='btn-next' href="userManage.jsp?page=<%=intPage + 1%>">下一页</a>
+			<a class='btn-prev' href="index.jsp?page=<%=intPage - 1%>">上一页</a>
+			<a class='btn-next' href="index.jsp?page=<%=intPage + 1%>">下一页</a>
 			<span>共 <span ><%=intPageCount %></span> 页 | 第 <span ><%=intPage %></span> 页|共<span ><%=intRowCount %></span>条记录</span>
 		</div>
     </div>
