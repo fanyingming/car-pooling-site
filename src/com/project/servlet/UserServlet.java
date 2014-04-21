@@ -106,7 +106,7 @@ public class UserServlet extends HttpServlet {
 				List<User> list = new ArrayList<User>();
 				list = service.listAllUsers();
 				request.setAttribute("list", list);
-				request.getRequestDispatcher("BackAdmin/user_list.jsp")
+				request.getRequestDispatcher("userManage.jsp")
 						.forward(request, response);
 			} 
 	/*		else if (type.equals("modify")) {
@@ -115,11 +115,7 @@ public class UserServlet extends HttpServlet {
 				request.setAttribute("user", user);
 				request.getRequestDispatcher("BackAdmin/user_modify.jsp")
 						.forward(request, response);
-			} else if (type.equals("delete")) {
-				int user_id = Integer.parseInt(request.getParameter("user_id"));
-				service.deleteUserByUid(user_id);
-				response.sendRedirect("UserServlet?type=list");
-			} else if (type.equals("modified")) {
+			}  else if (type.equals("modified")) {
 				String user_mail = request.getParameter("user_mail");
 				User user = new User();
 				user.setUser_name(user_name);
@@ -141,6 +137,11 @@ public class UserServlet extends HttpServlet {
 				response.sendRedirect("UserServlet?type=personalInfo");
 			} 
 			*/
+			else if (type.equals("delete")) {
+				int user_id = Integer.parseInt(request.getParameter("user_id"));
+				service.deleteUserByUid(user_id);
+				response.sendRedirect("UserServlet?type=list");
+			}
 			else if (type.equals("exit")) {
 
 				session.invalidate();
