@@ -27,6 +27,14 @@ public class CarpoolingService {
 		return dao.listAllCarpoolingOrderByCarpoolingId(begin, offset);
 	}
 	
+	public int getSecrchCarpoolingNumBySource(String keyWords) throws Exception{
+		return dao.getSecrchCarpoolingNumBySource(keyWords);
+	}
+	
+	public List<Carpooling> getSecrchCarpoolingBySource(String keyWords, int begin, int offset) throws Exception{
+		return dao.getSecrchCarpoolingBySource(keyWords, begin, offset);
+	}
+	
 	public Carpooling getCarpoolingByCarpoolingId(int carpooling_id) throws Exception {
 		return dao.getCarpoolingByCarpoolingId(carpooling_id);
 	}
