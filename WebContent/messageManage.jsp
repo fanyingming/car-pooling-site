@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*,com.project.javabean.*,
+<%@ page language="java" import="java.util.*,com.project.javabean.*,com.project.util.*,
 com.project.service.*" pageEncoding="utf-8"%>
 <%
 String path = request.getContextPath();
@@ -12,6 +12,39 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link type="text/css" href="style-1.css" rel="stylesheet" />
 </head>
 <body>
+<%
+		MessageService messageService=new MessageService();
+		UserService userService=new UserService();
+	    int intPageSize; //一页显示的记录
+        int intRowCount; //记录总数
+        int intPageCount; //总页
+        int intPage; //待显示页
+        //设置一页显示的记录
+        intPageSize = GlobalData.intPageSize_manage;
+    		//取得待显示页
+        String strPage = request.getParameter("page");
+        if (strPage == null) {//表明在QueryString中没有page这一个参数，此时显示第一页数
+            intPage = 1;
+        } else {//将字符串转换成整
+            intPage = java.lang.Integer.parseInt(strPage);
+            if (intPage < 1) {
+                intPage = 1;
+            }
+        }
+        intRowCount=messageService.getMessageTotalNum();
+        //记算总页
+        intPageCount = (intRowCount + intPageSize - 1) / intPageSize;
+   	 //调整待显示的页码
+        if (intPage > intPageCount && intPageCount>0) {
+            intPage = intPageCount;
+        }
+        if(intPageCount==0){
+       		intPage=1;
+        		intPageCount=1;
+        }
+        int begin=(intPage - 1) * intPageSize ;
+		List<Message> list = messageService.listAllMessageOrderByMessageId(begin, intPageSize ); 
+ %>
 	<div style="width:100%;">
 		<div class="head" style="height:125px;padding-bottom:0px;">
 			<div style="width:47%;float:left;margin-left:3%;">
@@ -19,10 +52,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 			<div style="width:50%;float:left;">
 				<div class="logArea" >
-					<a href="log.html">登录</a>
+					<a href="log.jsp">登录</a>
 				</div>
 				<div class="logArea">
-					<a href="log.html">注册</a>
+					<a href="log.jsp">注册</a>
 				</div>
 			</div>
 			
@@ -46,14 +79,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<li class="t4" style="width:430px;">发表内容</li>
 			<li class="t1" style="width:100px;">操作</li>
 		</ul>
+		<%
+         	if(list!=null){
+        			for(int i=0;i<list.size();i++){
+        				Message message= (Message)list.get(i);
+        				String user_name = userService.getUserNameByUserId(message.getUser_id());
+    		 %>
 		<ul class="table interleaved_0" style="margin-left:30px;width:90%;">
-				<li class="t1" style="width:100px;">1</li>
-				<li class="t2" style="width:100px; ">user1</li>
-				<li class="t3" style="width:150px; "><span class='green'>2014-04-11 12:12:09</span></li>
-				<li class="t4" style="width:430px;">希望能够拼车去</li>
-				<li class='t7' style="width:100px;"><a class2baidu='details' target='_blank' href='#' title='查看详情'>删除</a></li>
+				<li class="t1" style="width:100px;"><%=message.getMessage_id() %></li>
+				<li class="t2" style="width:100px; "><%=user_name %></li>
+				<li class="t3" style="width:150px; "><span class='green'><%=message.getDate() %></span></li>
+				<li class="t4" style="width:430px;"><%=message.getMessage_content() %></li>
+				<li class='t7' style="width:100px;"><a class2baidu='details' target='_blank' href="MessageServlet?type=delete&&message_id=<%=message.getMessage_id() %>" title='删除'>删除</a></li>
 		</ul>	
-			
+		<%} } %>
+		<!--分页代码-->
+		<div class='pages'>
+			<a class='btn-prev' href="messageManage.jsp?page=<%=intPage - 1%>">上一页</a>
+			<a class='btn-next' href="messageManage.jsp?page=<%=intPage + 1%>">下一页</a>
+			<span>共 <span ><%=intPageCount %></span> 页 | 第 <span ><%=intPage %></span> 页|共<span ><%=intRowCount %></span>条记录</span>
+		</div>	
 			
 			
 	</div>

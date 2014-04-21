@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.project.javabean.Message;
+import com.project.javabean.User;
 import com.project.service.MessageService;
+import com.project.service.UserService;
 
 /**
  * Servlet implementation class MessageServlet
@@ -53,34 +55,28 @@ public class MessageServlet extends HttpServlet {
 		try {
 				if (type.equals("add")) {
 					
+					Integer carpooling_id = Integer.parseInt(request.getParameter("carpooling_id"));
 					String message_content = request.getParameter("message_content");
-					Integer gasoline_fee = Integer.parseInt(request.getParameter("gasoline_fee"));
-					Integer road_fee = Integer.parseInt(request.getParameter("road_fee"));
-					Integer total_passangers = Integer.parseInt(request.getParameter("total_passangers"));
-					Integer distance = Integer.parseInt(request.getParameter("distance"));
 					User user=(User)session.getAttribute("user");
+					Integer user_id;
 					if(user == null){
 						response.sendRedirect("error.jsp");
 					}
-					Carpooling c = new Carpooling();
-					c.setCar_type(car_type);
-					c.setDestiny(destiny);
-					c.setDistance(distance);
-					c.setGasoline_fee(gasoline_fee);
-					c.setIntro(intro);
-					c.setRoad_fee(road_fee);
-					c.setSource(source);
-					c.setTotal_passangers(total_passangers);
-					c.setUser_id(user.getUser_id());
-					c.setDate(date);
-					service.addCarpooling(c);
-					response.sendRedirect("index.jsp");
+					user_id = user.getUser_id();
+					Message m = new Message();
+					m.setMessage_content(message_content);
+					m.setCarpooling_id(carpooling_id);
+					m.setUser_id(user_id);
+					service.addMessage(m);
+					request.setAttribute("result", "留言成功。");
+					request.getRequestDispatcher("succ.jsp")
+							.forward(request, response);
 			}else if (type.equals("list")) {
-				response.sendRedirect("index.jsp");
+			//	response.sendRedirect("index.jsp");
 			}else if (type.equals("delete")) {
-				int carpooling_id = Integer.parseInt(request.getParameter("carpooling_id"));
-				service.deleteCarpoolingByCarpoolingId(carpooling_id);
-				response.sendRedirect("index.jsp");
+				int message_id = Integer.parseInt(request.getParameter("message_id"));
+				service.deleteMessageByMessageId(message_id);
+				response.sendRedirect("messageManage.jsp");
 			}
 	
 			

@@ -98,7 +98,10 @@ public class CarpoolingServlet extends HttpServlet {
 			}else if (type.equals("join")) {
 				User user=(User)session.getAttribute("user");
 				if(user == null){
-					response.sendRedirect("error.jsp");
+					request.setAttribute("result", "请登录");
+					request.getRequestDispatcher("log.jsp").forward(request,
+							response);
+					return;
 				}
 				int user_id = user.getUser_id();
 				int carpooling_id = Integer.parseInt(request.getParameter("carpooling_id"));
@@ -108,8 +111,11 @@ public class CarpoolingServlet extends HttpServlet {
 					request.setAttribute("result", "此车人数已满，请尝试其他车~~");
 					request.getRequestDispatcher("error.jsp")
 							.forward(request, response);
+					return;
 				}
 				//TODO: 同一个人不能多次订车。
+				
+				//TODO: 自己不能第二次加入自己的订车单。
 				
 				service.addPassanger(carpooling_id);
 				request.setAttribute("result", "拼车成功，请尽快联系车主。");
