@@ -28,7 +28,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div style="width:100%;">
 		<div class="head" style="height:125px;padding-bottom:0px;">
 			<div style="width:47%;float:left;margin-left:3%;">
-				<a href="index.html" style="font-size:45px;color:white;font-family:'微软雅黑';">拼车网</a>
+				<a href="index.jsp" style="font-size:45px;color:white;font-family:'微软雅黑';">拼车网</a>
 			</div>
 			<div style="width:50%;float:left;">
 				<%
@@ -93,8 +93,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 		</div>
 		<div>
-			<textarea cols=40 rows=8 name=text style="background-color:BFCEDC;margin-left:15px;width:550px;" id="messageArea"></textarea>
-			<button style="width:80px; height:40px;margin-top:0px;font-size:14px;line-height:40px;float:right;margin-right:10px;">发表留言</button>
+		<form name="form2" method="post" action="MessageServlet?type=add&&carpooling_id=<%=carpooling.getCarpooling_id()%>" >
+			<textarea cols=40 rows=8 name="message_content" style="background-color:BFCEDC;margin-left:15px;width:550px;" id="messageArea"></textarea>
+			 <input type="submit" id="Button1" value="发表留言" style="width:80px; height:40px;margin-top:0px;font-size:14px;line-height:40px;float:right;margin-right:10px;" />
+		</form>
 		</div>
 
 	</div><!--   end of list-->
