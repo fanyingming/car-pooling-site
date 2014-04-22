@@ -53,7 +53,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			String date = request.getParameter("date");
 			String source = request.getParameter("source");
 			String destiny = request.getParameter("destiny");
-			
+			if(destiny!=null && source!=null){
+				intRowCount=carpoolingService.getSecrchCarpoolingNumBySourceAndDestiny(source,destiny);
+			}else if( source!=null && destiny==null ){
+				intRowCount=carpoolingService.getSecrchCarpoolingNumBySource(source);
+			}else if( source==null && destiny!=null ){
+				intRowCount=carpoolingService.getSecrchCarpoolingNumByDestiny(destiny);
+			}else{
+				intRowCount=carpoolingService.getCarpoolingTotalNum();
+			}
 			//We search source only now.
 			intRowCount=carpoolingService.getSecrchCarpoolingNumBySource(source);
 		    //记算总页
@@ -67,7 +75,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        intPageCount=1;
 		    }
 		    int begin=(intPage - 1) * intPageSize ;
-			list = carpoolingService.getSecrchCarpoolingBySource(source,begin, intPageSize ); 
+		    if(destiny!=null && source!=null){
+		    	list = carpoolingService.getSecrchCarpoolingBySourceAndDestiny(source,destiny,begin, intPageSize ); 
+			}else if( source!=null && destiny==null ){
+				list = carpoolingService.getSecrchCarpoolingBySource(source,begin, intPageSize ); 
+			}else if( source==null && destiny!=null ){
+				list = carpoolingService.getSecrchCarpoolingByDestiny(destiny,begin, intPageSize ); 
+			}else{
+				list = carpoolingService.listAllCarpoolingOrderByCarpoolingId(begin, intPageSize ); 
+			}
+			
     		}
     			
        
@@ -105,7 +122,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="search">
 			<form id="secrchForm" action="" method="post"><!--	搜索表单		-->
 				出发城市：
-				<input plugin="start" id="search_start" name="source" value="北京" class="f" type="text" />
+				<input plugin="start" id="search_start" name="source" value="" class="f" type="text" />
 				目的城市：
 				<input plugin="end" id="search_end" name="destiny" value="" class="f" type="text" />
 				出发时间：

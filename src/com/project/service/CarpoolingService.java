@@ -35,6 +35,22 @@ public class CarpoolingService {
 		return dao.getSecrchCarpoolingBySource(keyWords, begin, offset);
 	}
 	
+	public int getSecrchCarpoolingNumByDestiny(String keyWords) throws Exception{
+		return dao.getSecrchCarpoolingNumByDestiny(keyWords);
+	}
+	
+	public List<Carpooling> getSecrchCarpoolingByDestiny(String keyWords, int begin, int offset) throws Exception{
+		return dao.getSecrchCarpoolingByDestiny(keyWords, begin, offset);
+	}
+	
+	public int getSecrchCarpoolingNumBySourceAndDestiny(String source,String destiny) throws Exception{
+		return dao.getSecrchCarpoolingNumBySourceAndDestiny(source,destiny);
+	}
+	
+	public List<Carpooling> getSecrchCarpoolingBySourceAndDestiny(String source,String destiny, int begin, int offset) throws Exception{
+		return dao.getSecrchCarpoolingBySourceAndDestiny(source, destiny, begin, offset);
+	}
+	
 	public Carpooling getCarpoolingByCarpoolingId(int carpooling_id) throws Exception {
 		return dao.getCarpoolingByCarpoolingId(carpooling_id);
 	}
