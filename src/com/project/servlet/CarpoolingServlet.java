@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import com.project.javabean.Carpooling;
 import com.project.javabean.User;
 import com.project.service.CarpoolingService;
+import com.project.service.UserService;
 
 /**
  * Servlet implementation class CarpoolingServlet
@@ -51,6 +52,7 @@ public class CarpoolingServlet extends HttpServlet {
 		String type = request.getParameter("type");
 		
 		CarpoolingService service = new CarpoolingService();
+		UserService userService = new UserService();
 		HttpSession session = request.getSession();
 		
 		try {
@@ -103,7 +105,7 @@ public class CarpoolingServlet extends HttpServlet {
 							response);
 					return;
 				}
-				int user_id = user.getUser_id();
+				
 				int carpooling_id = Integer.parseInt(request.getParameter("carpooling_id"));
 				Carpooling c = service.getCarpoolingByCarpoolingId(carpooling_id);
 				//订车人数不能大于总人数
@@ -118,7 +120,12 @@ public class CarpoolingServlet extends HttpServlet {
 				//TODO: 自己不能第二次加入自己的订车单。
 				
 				service.addPassanger(carpooling_id);
-				request.setAttribute("result", "拼车成功，请尽快联系车主。");
+				//Get host info.
+				Carpooling car = service.getCarpoolingByCarpoolingId(carpooling_id);
+				int host_id = car.getUser_id();
+				User host = userService.getUserByUserId(host_id);
+				String host_info = "车主用户名:"+host.getUser_name()+".车主电子邮件:"+host.getUser_mail()+"车主电话:"+host.getUser_phone();
+				request.setAttribute("result", "拼车成功，请尽快联系车主."+host_info);
 				request.getRequestDispatcher("succ.jsp")
 						.forward(request, response);
 			}else if (type.equals("search")) {
