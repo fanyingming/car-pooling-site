@@ -1,5 +1,5 @@
 <%@ page language="java" import="java.util.*,com.project.javabean.*,com.project.util.*,
-com.project.service.*" pageEncoding="utf-8"%>
+java.util.Map.Entry,com.project.service.*" pageEncoding="utf-8"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -24,7 +24,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		int log_num = logService.getLogTotalNum();
 		int user_num= userService.getUserTotalNum();
 		int carpooling_num = carpoolingService.getCarpoolingTotalNum();
+		TreeMap<String,Integer> sourceMaps   = logService.getCarpoolingSources();
+		TreeMap<String,Integer> destinyMaps  = logService.getCarpoolingDestinies();
+		int source_num = sourceMaps.size();
+		int destiny_num= destinyMaps.size();
 %>
+
 	<jsp:include page="navi_admin.jsp" flush="true" />
 <div class="body">
 <div class="body_bg">
@@ -49,19 +54,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<tr>
 			<td class="table_left">出发地点统计</td>
 			<td class="table_right">
-				北京<a href="#">3</a>个<br>
-				上海<a href="#">1</a>个<br>
-				重庆<a href="#">1</a>个<br>
-				天津<a href="#">1</a>个
+				<%  Iterator <Entry<String,Integer>>  it  =  sourceMaps.entrySet().iterator();  
+				while(it.hasNext()){
+					Entry<String, Integer> en = it.next();
+					String source= en.getKey();
+					int value = en.getValue(); 
+				%>
+					<%=source%><a href="#"><%=value %></a>个
+					<br>
+				<%} %>
 			</td>
 		</tr>
 		<tr>
 			<td class="table_left">到达地点统计</td>
 			<td class="table_right">
-				北京<a href="#">3</a>个<br>
-				上海<a href="#">1</a>个<br>
-				石家庄<a href="#">1</a>个<br>
-				合肥<a href="#">1</a>个
+				<%  Iterator <Entry<String,Integer>>  it1  =  destinyMaps.entrySet().iterator();  
+				while(it1.hasNext()){
+					Entry<String, Integer> en = it1.next();
+					String destiny= en.getKey();
+					int value = en.getValue(); 
+				%>
+					<%=destiny%><a href="#"><%=value %></a>个
+					<br>
+				<%} %>
 				
 			</td>
 		</tr>

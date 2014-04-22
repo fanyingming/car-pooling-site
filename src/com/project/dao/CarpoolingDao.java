@@ -271,5 +271,32 @@ public class CarpoolingDao {
 		DBPoolUtil.closeConnection(conn);
 		return carpoolings;
 }
+	
+	public List<Carpooling> listAllCarpoolings() throws Exception{
+		List<Carpooling> carpoolings = new ArrayList<Carpooling>();
+		Connection conn = DBPoolUtil.getConnection();
+		String sql = "select * from tb_carpooling";
+
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		ResultSet result = pstmt.executeQuery(sql);
+		while (result.next()) {
+			Carpooling c = new Carpooling();
+			c.setCar_type(result.getString("car_type"));
+			c.setCarpooling_id(result.getInt("carpooling_id"));
+			c.setDate(result.getString("date"));
+			c.setDestiny(result.getString("destiny"));
+			c.setDistance(result.getInt("distance"));
+			c.setGasoline_fee(result.getInt("gasoline_fee"));
+			c.setIntro(result.getString("intro"));
+			c.setJoined_passangers(result.getInt("joined_passangers"));
+			c.setRoad_fee(result.getInt("road_fee"));
+			c.setSource(result.getString("source"));
+			c.setTotal_passangers(result.getInt("total_passangers"));
+			c.setUser_id(result.getInt("user_id"));
+			carpoolings.add(c);
+		}
+		DBPoolUtil.closeConnection(conn);
+		return carpoolings;
+}
 
 }
