@@ -13,6 +13,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 <body>
 <%
+		SessionChecker sessionChecker = new SessionChecker(request);	
+		if(!sessionChecker.checkAdministrator()){
+			response.sendRedirect("admin_log.jsp");
+			return;
+		}
+		Administrator administrator = (Administrator)session.getAttribute("administrator");
 		CarpoolingService carpoolingService=new CarpoolingService();
 	    int intPageSize; //一页显示的记录
         int intRowCount; //记录总数
@@ -50,19 +56,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<a href="index.jsp" style="font-size:45px;color:white;font-family:'微软雅黑';">拼车网管理系统</a>
 			</div>
 			<div style="width:50%;float:left;">
-				<div class="logArea" >
-					<a href="log.jsp">登录</a>
-				</div>
-				<div class="logArea">
-					<a href="log.jsp">注册</a>
-				</div>
+	
+			<span style="float:right;"><%=administrator.getAdministrator_name()%>，欢迎！&nbsp;[<a href="AdministratorServlet?type=exit" id="exit-button">退出</a>]</span>   
+			
 			</div>
 			
 			 <div class="menu">
-				<a class="x select" href="manage.jsp">拼车信息管理</a>
+				<a class="x " href="manage.jsp">拼车信息管理</a>
 				<a class="x " href="messageManage.jsp">留言管理</a>
 				<a class="x " href="userManage.jsp">用户管理</a>
-				<a class="x " href="statistics.html">站点统计</a>
+				<a class="x select" href="statistics.jsp">站点统计</a>
 			</div>
 		</div>
 	</div>

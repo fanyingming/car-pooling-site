@@ -54,10 +54,7 @@ public class UserServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		try {
 			if (type.equals("login")) {
-			//	String validate=request.getParameter("validate");
-			//	String rand=(String)session.getAttribute("rand");
-			//	System.out.println("user_name=" + user_name);
-			//	System.out.println("user_pass=" + user_pass);
+
 				User u = new User();
 				u.setUser_name(user_name);
 				u.setUser_pass(user_pass);
@@ -84,8 +81,7 @@ public class UserServlet extends HttpServlet {
 				service.addUser(u);
 				response.sendRedirect("UserServlet?type=list");
 			} else if (type.equals("regist")) {
-			//	String yan=request.getParameter("yan");
-			//	String rand=(String)session.getAttribute("rand");
+
 				String user_phone = request.getParameter("user_phone");
 				String user_mail  = request.getParameter("user_mail");
 				 
@@ -148,12 +144,12 @@ public class UserServlet extends HttpServlet {
 						response);
 			} 
 			else {
-					response.sendRedirect("login.jsp");
+					response.sendRedirect("log.jsp");
 				}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			response.sendRedirect("BackAdmin/error.jsp");
+			response.sendRedirect("error.jsp");
 		}
 	}
 

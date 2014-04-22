@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*,com.project.javabean.*,
+<%@ page language="java" import="java.util.*,com.project.javabean.*,com.project.util.*,
 com.project.service.*" pageEncoding="utf-8"%>
 <%
 String path = request.getContextPath();
@@ -14,6 +14,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 <body>
 <% 
+
+	SessionChecker sessionChecker = new SessionChecker(request);
+	if(!sessionChecker.checkUser())
+		response.sendRedirect("log.jsp");
+
   	Carpooling carpooling=(Carpooling)request.getAttribute("carpooling");
   	int leaved_num = 0;
   	if(carpooling==null){

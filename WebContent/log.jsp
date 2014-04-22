@@ -125,7 +125,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="foot">
 	<span>&#169; 2011-2013 <a href="#">拼车网</a> &nbsp; </span>
     <span>
-    	<a rel="nofollow" href="#">关于我们</a> |
+    	<a rel="#" href="#">关于我们</a> |
 		<a href="#">合作伙伴</a> |
    
 	</span>

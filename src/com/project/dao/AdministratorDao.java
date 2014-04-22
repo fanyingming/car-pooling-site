@@ -146,4 +146,20 @@ public class AdministratorDao {
 		DBPoolUtil.closeConnection(conn);
 		return admins;
 	}
+	
+	public int getAdministratorIdByAdministratorName(String administrator_name) throws SQLException {
+		int value = 0;
+		Connection conn = DBPoolUtil.getConnection();
+		String sql = "select * from tb_administrator where administrator_name='" + administrator_name
+				+ "'";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+
+		ResultSet result = pstmt.executeQuery(sql);
+		if (result.next()) {
+			value = result.getInt("administrator_id");
+		}
+		DBPoolUtil.closeConnection(conn);
+		return value;
+
+	}
 }
