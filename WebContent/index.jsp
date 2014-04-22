@@ -99,8 +99,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<input plugin="start" id="search_start" name="source" value="" class="f" type="text" />
 				目的城市：
 				<input plugin="end" id="search_end" name="destiny" value="" class="f" type="text" />
-				出发时间：
-				<input  name="date" value="" class="f" type="text" />
 				<a id="to_search" class="x search" href="javascript:void(0)" rel="nofollow" onclick= "secrchForm.action='index.jsp?type=search';secrchForm.submit(); ">搜索</a>
 				
 			</form>
