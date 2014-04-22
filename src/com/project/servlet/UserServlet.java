@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import com.project.javabean.User;
 import com.project.service.UserService;
+import com.project.service.LogService;
 
 /**
  * Servlet implementation class UserServlet
@@ -51,6 +52,7 @@ public class UserServlet extends HttpServlet {
 		String type = request.getParameter("type");
 		
 		UserService service = new UserService();
+		LogService logService = new LogService();
 		HttpSession session = request.getSession();
 		try {
 			if (type.equals("login")) {
@@ -59,6 +61,7 @@ public class UserServlet extends HttpServlet {
 				u.setUser_name(user_name);
 				u.setUser_pass(user_pass);
 				if (service.isExist(u)) {
+					logService.addLog();
 					u.setUser_id(service.getUserIdByUserName(user_name));
 					session.setAttribute("user", u);
 					request.getRequestDispatcher("index.jsp").forward(request,

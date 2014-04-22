@@ -18,7 +18,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			response.sendRedirect("admin_log.jsp");
 			return;
 		}
-		Administrator administrator = (Administrator)session.getAttribute("administrator");
+		LogService logService = new LogService();
+		UserService userService = new UserService();
+		CarpoolingService carpoolingService = new CarpoolingService();
+		int log_num = logService.getLogTotalNum();
+		int user_num= userService.getUserTotalNum();
+		int carpooling_num = carpoolingService.getCarpoolingTotalNum();
 %>
 	<jsp:include page="navi_admin.jsp" flush="true" />
 <div class="body">
@@ -31,31 +36,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</tr>
 		<tr>
 			<td class="table_left">访问人次</td>
-			<td class="table_right">189人次</td>
+			<td class="table_right"><a href="#"><%=log_num %></a>人次</td>
 		</tr>
 		<tr>
 			<td class="table_left">注册用户</td>
-			<td class="table_right"><a href="#">128</a>人</td>
+			<td class="table_right"><a href="#"><%=user_num %></a>人</td>
 		</tr>
 		<tr>
 			<td class="table_left">申请拼车人数</td>
-			<td class="table_right"><a href="#">16</a>人</td>
+			<td class="table_right"><a href="#"><%=carpooling_num %></a>人</td>
 		</tr>
 		<tr>
 			<td class="table_left">出发地点统计</td>
 			<td class="table_right">
-				北京<a href="#">3</a>个
-				上海<a href="#">1</a>个
-				重庆<a href="#">1</a>个
+				北京<a href="#">3</a>个<br>
+				上海<a href="#">1</a>个<br>
+				重庆<a href="#">1</a>个<br>
 				天津<a href="#">1</a>个
 			</td>
 		</tr>
 		<tr>
 			<td class="table_left">到达地点统计</td>
 			<td class="table_right">
-				北京<a href="#">3</a>个
-				上海<a href="#">1</a>个
-				石家庄<a href="#">1</a>个
+				北京<a href="#">3</a>个<br>
+				上海<a href="#">1</a>个<br>
+				石家庄<a href="#">1</a>个<br>
 				合肥<a href="#">1</a>个
 				
 			</td>
