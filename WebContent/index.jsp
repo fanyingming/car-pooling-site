@@ -53,7 +53,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			String date = request.getParameter("date");
 			String source = request.getParameter("source");
 			String destiny = request.getParameter("destiny");
-			
+			if(destiny!=null && source!=null){
+				intRowCount=carpoolingService.getSecrchCarpoolingNumBySourceAndDestiny(source,destiny);
+			}else if( source!=null && destiny==null ){
+				intRowCount=carpoolingService.getSecrchCarpoolingNumBySource(source);
+			}else if( source==null && destiny!=null ){
+				intRowCount=carpoolingService.getSecrchCarpoolingNumByDestiny(destiny);
+			}else{
+				intRowCount=carpoolingService.getCarpoolingTotalNum();
+			}
 			//We search source only now.
 			intRowCount=carpoolingService.getSecrchCarpoolingNumBySource(source);
 		    //记算总页
@@ -67,45 +75,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        intPageCount=1;
 		    }
 		    int begin=(intPage - 1) * intPageSize ;
-			list = carpoolingService.getSecrchCarpoolingBySource(source,begin, intPageSize ); 
+		    if(destiny!=null && source!=null){
+		    	list = carpoolingService.getSecrchCarpoolingBySourceAndDestiny(source,destiny,begin, intPageSize ); 
+			}else if( source!=null && destiny==null ){
+				list = carpoolingService.getSecrchCarpoolingBySource(source,begin, intPageSize ); 
+			}else if( source==null && destiny!=null ){
+				list = carpoolingService.getSecrchCarpoolingByDestiny(destiny,begin, intPageSize ); 
+			}else{
+				list = carpoolingService.listAllCarpoolingOrderByCarpoolingId(begin, intPageSize ); 
+			}
+			
     		}
     			
        
  %>
-	<div style="width:100%;">
-		<div class="head" style="height:125px;padding-bottom:0px;">
-			<div style="width:47%;float:left;margin-left:3%;">
-				<a href="index.jsp" style="font-size:45px;color:white;font-family:'微软雅黑';">拼车网</a>
-			</div>
-			<div style="width:50%;float:left;">
-			
-			<%
-				if(session.getAttribute("user")!=null){
-				User user=(User)session.getAttribute("user");
-			%>
-			<span style="float:right;"><%=user.getUser_name()%>，欢迎！&nbsp;[<a href="UserServlet?type=exit" id="exit-button">退出</a>]</span>   
-			<% }else{%>
-     			<div class="logArea" >
-					<a href="log.jsp">登录</a>
-				</div>
-				<div class="logArea">
-					<a href="log.jsp">注册</a>
-				</div>
-	  		<%}%>
-			
-			</div>
-			<div class="postInfo"><a href="post.jsp" title="车主发布长途拼车信息" rel="nofollow">发布拼车</a></div>
-			 <div class="menu">
-				<a class="x select" href=#">拼车查询</a>
-			</div>
-		</div>
-	</div>
+
+<jsp:include page="header.jsp" flush="true" />
 <div class="body">
 <div class="body_bg">
 	<div class="search">
 			<form id="secrchForm" action="" method="post"><!--	搜索表单		-->
 				出发城市：
-				<input plugin="start" id="search_start" name="source" value="北京" class="f" type="text" />
+				<input plugin="start" id="search_start" name="source" value="" class="f" type="text" />
 				目的城市：
 				<input plugin="end" id="search_end" name="destiny" value="" class="f" type="text" />
 				出发时间：
@@ -172,27 +163,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!--
 -->
 </div></div>
-<div class="foot">
-	<span>&#169; 2011-2013 <a href="#">拼车网</a> &nbsp; </span>
-    <span>
-    	<a rel="nofollow" href="#">关于我们</a> |
-		<a href="#">合作伙伴</a> |
-   
-	</span>
-</div>
 
-        
-        
+<%@ include file="footer.jsp" %>
 
-<div class="foot">
-    <span>
-    	<a href="#">联系我们</a> |
-        <a href="#">关于我们</a> |
-    
-	</span>
-  
-</div>
-</div>
 <script type="text/javascript">
     //创建和初始化地图函数：
     function initMap(){

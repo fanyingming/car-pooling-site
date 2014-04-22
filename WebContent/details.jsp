@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*,com.project.javabean.*,
+<%@ page language="java" import="java.util.*,com.project.javabean.*,com.project.util.*,
 com.project.service.*" pageEncoding="utf-8"%>
 <%
 String path = request.getContextPath();
@@ -14,6 +14,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 <body>
 <% 
+
+	SessionChecker sessionChecker = new SessionChecker(request);
+	if(!sessionChecker.checkUser())
+		response.sendRedirect("log.jsp");
+
   	Carpooling carpooling=(Carpooling)request.getAttribute("carpooling");
   	int leaved_num = 0;
   	if(carpooling==null){
@@ -25,29 +30,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	
   	
   %>
-	<div style="width:100%;">
-		<div class="head" style="height:125px;padding-bottom:0px;">
-			<div style="width:47%;float:left;margin-left:3%;">
-				<a href="index.jsp" style="font-size:45px;color:white;font-family:'微软雅黑';">拼车网</a>
-			</div>
-			<div style="width:50%;float:left;">
-				<%
-				if(session.getAttribute("user")!=null){
-				User user=(User)session.getAttribute("user");
-			%>
-			<span style="float: right;"><%=user.getUser_name()%>，欢迎！&nbsp;[<a href="UserServlet?type=exit" id="exit-button">退出</a>]</span>   
-			<% }else{%>
-     			<div class="logArea" >
-					<a href="log.jsp">登录</a>
-				</div>
-				<div class="logArea">
-					<a href="log.jsp">注册</a>
-				</div>
-	  		<%}%>
-
-			</div>		
-		</div>
-	</div>
+	<jsp:include page="header.jsp" flush="true" />
 <div class="body">
 <div class="body_bg">
 	<div class="search">
@@ -104,20 +87,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 
 
-<div class="foot">
-	<span>&#169; 2011-2013 <a href="#">拼车网</a> &nbsp; </span>
-    <span>
-    	<a rel="nofollow" href="#">关于我们</a> |
-		<a href="#">合作伙伴</a> |
-   
-	</span>
-</div>
-<div class="foot">
-    <span>
-    	<a href="#">联系我们</a> |
-        <a href="#">关于我们</a> |
-	</span>
-</div>
+<%@ include file="footer.jsp" %>
 
 <script type="text/javascript">
     //创建和初始化地图函数：

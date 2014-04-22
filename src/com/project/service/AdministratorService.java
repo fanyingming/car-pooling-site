@@ -1,5 +1,6 @@
 package com.project.service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import com.project.dao.AdministratorDao;
@@ -7,6 +8,10 @@ import com.project.javabean.*;
 
 public class AdministratorService {
 	private AdministratorDao dao = new AdministratorDao();
+	
+	public int getAdministratorIdByAdministratorName(String administrator_name) throws SQLException {
+		return dao.getAdministratorIdByAdministratorName(administrator_name);
+	}
 
 	public boolean addAdministrator(Administrator u) throws Exception {
 		return dao.addAdministrator(u);

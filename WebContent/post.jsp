@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*,com.project.javabean.*,
+<%@ page language="java" import="java.util.*,com.project.javabean.*,com.project.util.*,
 com.project.service.*" pageEncoding="utf-8"%>
 <%
 String path = request.getContextPath();
@@ -15,19 +15,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 <body>
 <%
-	String result="";
-	String user_name="";
-	boolean flag=false;
-	if(request.getAttribute("result")!=null){
-		result=(String)request.getAttribute("result");
-		flag=true;
-		user_name=(String)request.getAttribute("user_name");
+	SessionChecker sessionChecker = new SessionChecker(request);
+	if(!sessionChecker.checkUser()){
+		response.sendRedirect("log.jsp");
+		return;
 	}
  %>
 	<div style="width:100%;">
 		<div class="head" style="height:125px;padding-bottom:0px;">
 			<div style="width:47%;float:left;margin-left:3%;">
-				<a href="index.html" style="font-size:45px;color:white;font-family:'微软雅黑';">拼车网</a>
+				<a href="index.jsp" style="font-size:45px;color:white;font-family:'微软雅黑';">拼车网</a>
 			</div>
 			<div style="width:50%;float:left;">
 				<%
@@ -104,21 +101,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 	</div>
 </div>
-<div class="foot">
-	<span>&#169; 2011-2013 <a href="#">拼车网</a> &nbsp; </span>
-    <span>
-    	<a rel="nofollow" href="#">关于我们</a> |
-		<a href="#">合作伙伴</a> |
-   
-	</span>
-</div>
-
-<div class="foot">
-	<span>
-		<a href="#">联系我们</a> |
-		<a href="#">关于我们</a> |
-	</span>
-</div>
+<%@ include file="footer.jsp" %>
 
 <script type="text/javascript">
 var cpro_id = "u1102181";

@@ -13,6 +13,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 <body>
 <%
+		SessionChecker sessionChecker = new SessionChecker(request);		
+		if(!sessionChecker.checkAdministrator()){
+			response.sendRedirect("admin_log.jsp");
+			return;
+		}
+		Administrator administrator = (Administrator)session.getAttribute("administrator");
 		MessageService messageService=new MessageService();
 		UserService userService=new UserService();
 	    int intPageSize; //一页显示的记录
@@ -45,27 +51,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         int begin=(intPage - 1) * intPageSize ;
 		List<Message> list = messageService.listAllMessageOrderByMessageId(begin, intPageSize ); 
  %>
-	<div style="width:100%;">
-		<div class="head" style="height:125px;padding-bottom:0px;">
-			<div style="width:47%;float:left;margin-left:3%;">
-				<a href="index.jsp" style="font-size:45px;color:white;font-family:'微软雅黑';">拼车网管理系统</a>
-			</div>
-			<div style="width:50%;float:left;">
-				<div class="logArea" >
-					<a href="log.jsp">登录</a>
-				</div>
-				<div class="logArea">
-					<a href="log.jsp">注册</a>
-				</div>
-			</div>
-			
-			 <div class="menu">
-				<a class="x " href="manage.jsp">拼车信息管理</a>
-				<a class="x select" href="messageManage.jsp">留言管理</a>
-				<a class="x " href="userManage.jsp">用户管理</a>
-			</div>
-		</div>
-	</div>
+	<jsp:include page="navi_admin.jsp" flush="true" />
 <div class="body">
 <div class="body_bg">
 	<div class="search">
@@ -106,26 +92,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 -->
 </div>
 </div>
-<div class="foot">
-	<span>&#169; 2011-2013 <a href="#">拼车网</a> &nbsp; </span>
-    <span>
-    	<a rel="nofollow" href="#">关于我们</a> |
-		<a href="#">合作伙伴</a> |
-   
-	</span>
-</div>
-
-        
-        
-
-<div class="foot">
-    <span>
-    	<a href="#">联系我们</a> |
-        <a href="#">关于我们</a> |
-    
-	</span>
-  
-</div>
-</div>
+<%@ include file="footer.jsp" %>
 </body>
 </html>
