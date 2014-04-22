@@ -62,4 +62,8 @@ public class CarpoolingService {
 		dao.modifyCarpooling(c);
 		return true;
 	}
+	
+	public List<Carpooling> listAllCarpoolings( ) throws Exception{
+		return dao.listAllCarpoolings();
+	}
 }
