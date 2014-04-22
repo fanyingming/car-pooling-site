@@ -23,26 +23,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		flag=true;
 		user_name=(String)request.getAttribute("user_name");
 	}
+	//Administrator administrator = (Administrator)session.getAttribute("administrator"); 
  %>
-	<div style="width:100%;">
-		<div class="head" style="height:125px;padding-bottom:0px;">
-			<div style="width:47%;float:left;margin-left:3%;">
-				<a href="index.jsp" style="font-size:45px;color:white;font-family:'微软雅黑';">拼车网管理系统</a>
-			</div>
-			<div style="width:50%;float:left;">
-				<%
-				if(session.getAttribute("user")!=null){
-				User user=(User)session.getAttribute("user");
-			%>
-			<span style="float:right;"><%=user.getUser_name()%>，欢迎！&nbsp;[<a href="UserServlet?type=exit" id="exit-button">退出</a>]</span>   
-			<% }else{%>
-     		
-	  		<%}%>
-
-			</div>
-			
-		</div>
-	</div>
+	<jsp:include page="header_admin.jsp" flush="true" />
+	
 	<div class="body" style="height:500px;">
 		<div class="body_bg">
 			<div style="width:49%;margin:0px;float:left;border-right:1px solid;border-right-color:#77eeff;height:400px;">
@@ -81,21 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 		</div>
 	</div>
-	<div class="foot">
-	<span>&#169; 2011-2013 <a href="#">拼车网</a> &nbsp; </span>
-    <span>
-    	<a rel="nofollow" href="#">关于我们</a> |
-		<a href="#">合作伙伴</a> |
-   
-	</span>
-</div>
-
-<div class="foot">
-	<span>
-		<a href="#">联系我们</a> |
-		<a href="#">关于我们</a> |
-	</span>
-</div>
+<%@ include file="footer.jsp" %>
 <script type="text/javascript">
     //创建和初始化地图函数：
     function initMap(){
