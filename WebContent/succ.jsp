@@ -4,16 +4,23 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<link type="text/css" href="style-1.css" rel="stylesheet" />
+<title>拼车网</title>
 </head>
 <body>
+<jsp:include page="header.jsp" flush="true" />
 <div class="body">
 <div class="body_bg">
  	   <%
       	if(request.getAttribute("result")!=null){
        %>
       	<div class="search" style="font-family:'微软雅黑';font-size:30px;color:black;margin-top:60px;text-align:center;">
-		拼车成功！请联系车主。电话：<span style="color:blue;">PHONE NUMBER</span>
+		<span style="color:blue;">
+			<%  if(request.getAttribute("result")!=null){
+       		%>	 
+      			<h2><%=(String)request.getAttribute("result") %></h2>
+	      <%} %>
+		</span>
 	</div>
       <%} %>
 

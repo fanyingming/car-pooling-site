@@ -88,7 +88,7 @@ public class CarpoolingServlet extends HttpServlet {
 			}else if (type.equals("delete")) {
 				int carpooling_id = Integer.parseInt(request.getParameter("carpooling_id"));
 				service.deleteCarpoolingByCarpoolingId(carpooling_id);
-				response.sendRedirect("index.jsp");
+				response.sendRedirect("manage.jsp");
 			}else if (type.equals("detail")) {
 				Carpooling c = new Carpooling();
 				int carpooling_id = Integer.parseInt(request.getParameter("carpooling_id"));
@@ -124,7 +124,7 @@ public class CarpoolingServlet extends HttpServlet {
 				Carpooling car = service.getCarpoolingByCarpoolingId(carpooling_id);
 				int host_id = car.getUser_id();
 				User host = userService.getUserByUserId(host_id);
-				String host_info = "车主用户名:"+host.getUser_name()+".车主电子邮件:"+host.getUser_mail()+"车主电话:"+host.getUser_phone();
+				String host_info = "车主电话:"+host.getUser_phone();
 				request.setAttribute("result", "拼车成功，请尽快联系车主."+host_info);
 				request.getRequestDispatcher("succ.jsp")
 						.forward(request, response);

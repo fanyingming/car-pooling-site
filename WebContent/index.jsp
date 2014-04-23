@@ -90,7 +90,37 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
        
  %>
 
-<jsp:include page="header.jsp" flush="true" />
+
+<body>
+	<div style="width:100%;">
+		<div class="head" style="height:125px;padding-bottom:0px;">
+			<div style="width:47%;float:left;margin-left:3%;">
+				<a href="index.jsp" style="font-size:45px;color:white;font-family:'微软雅黑';">拼车网</a>
+			</div>
+			<div style="width:50%;float:left;">
+			
+			<%
+				if(session.getAttribute("user")!=null){
+				User user=(User)session.getAttribute("user");
+			%>
+			<span style="float:right;"><%=user.getUser_name()%>，欢迎！&nbsp;[<a href="UserServlet?type=exit" id="exit-button">退出</a>]</span>   
+			<% }else{%>
+     			<div class="logArea" >
+					<a href="log.jsp">登录</a>
+				</div>
+				<div class="logArea">
+					<a href="log.jsp">注册</a>
+				</div>
+	  		<%}%>
+			
+			</div>
+			<div class="postInfo"><a href="post.jsp" title="车主发布长途拼车信息" rel="nofollow">发布拼车</a></div>
+			 <div class="menu">
+				<a class="x select" href=#">拼车查询</a>
+			</div>
+		</div>
+	</div>
+</body>
 <div class="body">
 <div class="body_bg">
 	<div class="search">

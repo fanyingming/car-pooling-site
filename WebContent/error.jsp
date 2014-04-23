@@ -9,26 +9,16 @@
 <script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script>
 </head>
 <body>
-	<div style="width:100%;">
-		<div class="head" style="height:125px;padding-bottom:0px;">
-			<div style="width:47%;float:left;margin-left:3%;">
-				<a href="index.html" style="font-size:45px;color:white;font-family:'微软雅黑';">拼车网</a>
-			</div>
-			<div style="width:50%;float:left;">
-				<div class="logArea" >
-					<a href="log.html">登录</a>
-				</div>
-				<div class="logArea">
-					<a href="log.html">注册</a>
-				</div>
-
-			</div>		
-		</div>
-	</div>
+<jsp:include page="header.jsp" flush="true" />
 <div class="body">
 <div class="body_bg">
 	<div class="search" style="font-family:'微软雅黑';font-size:30px;color:black;margin-top:60px;text-align:center;">
-		您访问的页面有误。。。<a href="">返回</a>
+		<%  if(request.getAttribute("result")!=null){
+       %>	 
+      <h2><%=(String)request.getAttribute("result") %></h2>
+	 
+      <%} %>
+      <br><a href="index.jsp">返回</a>
 	</div>
 
 	
@@ -37,20 +27,7 @@
 </div>
 
 
-<div class="foot">
-	<span>&#169; 2011-2013 <a href="#">拼车网</a> &nbsp; </span>
-    <span>
-    	<a rel="nofollow" href="#">关于我们</a> |
-		<a href="#">合作伙伴</a> |
-   
-	</span>
-</div>
-<div class="foot">
-    <span>
-    	<a href="#">联系我们</a> |
-        <a href="#">关于我们</a> |
-	</span>
-</div>
+<%@ include file="footer.jsp" %>
 
 <script type="text/javascript">
     //创建和初始化地图函数：
