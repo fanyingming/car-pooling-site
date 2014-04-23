@@ -129,11 +129,15 @@ public class CarpoolingServlet extends HttpServlet {
 				request.getRequestDispatcher("succ.jsp")
 						.forward(request, response);
 			}else if (type.equals("search")) {
-				String date = request.getParameter("date");
 				String source = request.getParameter("source");
 				String destiny = request.getParameter("destiny");
 				
-			//	List<Carpooling> search_carpoolings = service.getSecrchCarpoolingBySource(date, begin, offset)
+				request.setAttribute("source", source);
+				request.setAttribute("destiny", source);
+				request.setAttribute("type", "search");
+				request.getRequestDispatcher("index.jsp")
+						.forward(request, response);
+			
 			}
 	
 			

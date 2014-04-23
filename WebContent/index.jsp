@@ -50,7 +50,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		        int begin=(intPage - 1) * intPageSize ;
     				list = carpoolingService.listAllCarpoolingOrderByCarpoolingId(begin, intPageSize ); 
     		}else{//search page.
-    			String date = request.getParameter("date");
+    		
 			String source = request.getParameter("source");
 			String destiny = request.getParameter("destiny");
 			if(destiny!=null && source!=null){
@@ -126,10 +126,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="search">
 			<form id="secrchForm" action="" method="post"><!--	搜索表单		-->
 				出发城市：
-				<input plugin="start" id="search_start" name="source" value="" class="f" type="text" />
+				<input  id="search_start" name="source" value="" class="f" type="text" />
 				目的城市：
-				<input plugin="end" id="search_end" name="destiny" value="" class="f" type="text" />
-				<a id="to_search" class="x search" href="javascript:void(0)" rel="nofollow" onclick= "secrchForm.action='index.jsp?type=search';secrchForm.submit(); ">搜索</a>
+				<input  id="search_end" name="destiny" value="" class="f" type="text" />
+				<a id="to_search" class="x search" href="javascript:void(0)" rel="nofollow" onclick= "secrchForm.action='CarpoolingServlet?type=search';secrchForm.submit(); ">搜索</a>
 				
 			</form>
 	</div>
