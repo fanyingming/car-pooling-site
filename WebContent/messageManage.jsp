@@ -76,7 +76,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<li class="t2" style="width:100px; "><%=user_name %></li>
 				<li class="t3" style="width:150px; "><span class='green'><%=message.getDate() %></span></li>
 				<li class="t4" style="width:430px;"><%=message.getMessage_content() %></li>
-				<li class='t7' style="width:100px;"><a class2baidu='details' target='_blank' href="MessageServlet?type=delete&&message_id=<%=message.getMessage_id() %>" title='删除'>删除</a></li>
+				<li class='t7' style="width:100px;"><a class2baidu='details'  href="MessageServlet?type=delete&&message_id=<%=message.getMessage_id() %>" title='删除'>删除</a></li>
 		</ul>	
 		<%} } %>
 		<!--分页代码-->

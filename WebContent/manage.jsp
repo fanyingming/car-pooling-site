@@ -82,7 +82,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<li class="t5" style="width:130px;"><%=carpooling.getSource() %></li>
 				<li class="t6" style="width:130px;"><%=carpooling.getDestiny() %></li>
 
-				<li class='t7' style="width:130px;"><a class2baidu='details' target='_blank' href="CarpoolingServlet?type=delete&&carpooling_id=<%=carpooling.getCarpooling_id() %>&&page=<%=intPage %>" >删除</a></li>
+				<li class='t7' style="width:130px;"><a class2baidu='details'  href="CarpoolingServlet?type=delete&&carpooling_id=<%=carpooling.getCarpooling_id() %>&&page=<%=intPage %>" >删除</a></li>
 		</ul>	
 		<%} } %>
 		<!--分页代码-->
